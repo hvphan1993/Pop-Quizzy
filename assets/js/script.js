@@ -2,7 +2,7 @@
 // eventlisteners for on click events, array to hold answers for localStorage, stored questions to reference in JSON, 
 // -- high score feature, timer feature, way to check accuracy of answer, add initials to high score
 var body = document.body;
-var questionsArray = ["Which creature did Han cut open to keep Luke warm?",
+var questionsArray = ["Which creature did Han Solo cut open to keep Luke warm?",
                       "What did Luke want to get from Tosche station?",
                       "Which Jedi has a yellow lightsaber?",
                       "What species is Greedo?",
@@ -23,11 +23,17 @@ var quizRulesButton = document.querySelector("#quizStart");
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers 
 var questionBox = document.createElement("h1");
-var answerToFill = document.createElement("ol");
+var answersToFill = document.createElement("ol");
+answersToFill.setAttribute("style", "font-size: 30px; background-color: #2a9fbe; padding: 30px;");
 var li1 = document.createElement("li");
 var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
+
+var btn1 = document.createElement("button");
+var btn2 = document.createElement("button");
+var btn3 = document.createElement("button");
+var btn4 = document.createElement("button");
 
 // timer function
 function countdown() {
@@ -61,6 +67,15 @@ var startQuiz = function(){
   //make first set of questions visible (buttons linked to correct/incorrect)
   questionBox.textContent = questionsArray[0];
   body.appendChild(questionBox);
+
+  //answersToFill.textContent = answersArray[0];
+  li1.textContent = answersArray[0][0];
+  li2.textContent = answersArray[0][1];
+  li3.textContent = answersArray[0][2];
+  li4.textContent = answersArray[0][3];
+  // need to append the list structure before adding in list elements
+  body.appendChild(answersToFill);
+  answersToFill.append(li1, li2, li3, li4);
 
   //start quiz timer
   countdown();
