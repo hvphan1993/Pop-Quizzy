@@ -1,0 +1,34 @@
+/* high score and timer stylying */
+
+
+/* Quiz intro styling */
+
+
+/*question box styling */
+.questionBox {
+    text-align: center;
+    border-radius: 20px;
+
+}
+
+
+/*answer box styling */
+.answerChoices {
+    border-radius: 20px;
+    width: 40%;
+    font-size: 26px; 
+    background-color: #2a9fbe; 
+    padding: 30px;
+    margin: 100px auto;
+}
+
+/*button styling */
+.answerChoices li button {
+    font-size: 22px;
+    margin-bottom; 10px;
+    border-radius: 20px;
+}
+
+
+
+/* high score page styling */

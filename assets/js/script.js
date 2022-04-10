@@ -23,8 +23,10 @@ var quizRulesButton = document.querySelector("#quizStart");
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers 
 var questionBox = document.createElement("h1");
+questionBox.classList.add("questionBox");
+var listBox = document.createElement("div");
+listBox.classList.add("answerChoices");
 var answersToFill = document.createElement("ol");
-answersToFill.setAttribute("style", "font-size: 30px; background-color: #2a9fbe; padding: 30px;");
 var li1 = document.createElement("li");
 var li2 = document.createElement("li");
 var li3 = document.createElement("li");
@@ -34,6 +36,16 @@ var btn1 = document.createElement("button");
 var btn2 = document.createElement("button");
 var btn3 = document.createElement("button");
 var btn4 = document.createElement("button");
+
+var buttonsArray = [btn1, btn2, btn3, btn4];
+for (var i = 0; i < buttonsArray.length; i++) {
+  buttonsArray[i].addEventListener("click", quizCheck);
+}
+
+li1.appendChild(btn1);
+li2.appendChild(btn2);
+li3.appendChild(btn3);
+li4.appendChild(btn4);
 
 // timer function
 function countdown() {
@@ -69,26 +81,49 @@ var startQuiz = function(){
   body.appendChild(questionBox);
 
   //answersToFill.textContent = answersArray[0];
-  li1.textContent = answersArray[0][0];
-  li2.textContent = answersArray[0][1];
-  li3.textContent = answersArray[0][2];
-  li4.textContent = answersArray[0][3];
+  btn1.textContent = answersArray[0][0];
+  btn2.textContent = answersArray[0][1];
+  btn3.textContent = answersArray[0][2];
+  btn4.textContent = answersArray[0][3];
   // need to append the list structure before adding in list elements
-  body.appendChild(answersToFill);
+  body.appendChild(listBox);
+  listBox.appendChild(answersToFill);
   answersToFill.append(li1, li2, li3, li4);
-
   //start quiz timer
   countdown();
-  //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
-  //if button clicked is correct then increase time by 10, change color of button to green and text to "correct!"
-  // after button clicked, hide current options and show next set
   
 }
+ //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
 
+var quizCheck = function(event) {
+  var userChoice = event.target;
+  //button !== text content of correctAnswerArray[i]) then run incorrect protocol
+  if (userChoice.textContent !== correctAnswerArray[questionTracker]) {
+    timeLeft -= 10;
+    //add "incorrect answer" pop op
+    //change button text color to red
+   
+}//if button clicked is correct then increase time by 10, change color of button to green and text to "correct!"
+  else {
+    timeLeft += 10;
+    // add text "correct"
+    userChoice.setAttribute("style", "color: green";)
+  }
+
+   // switch set of questions/answers regardless of correct/incorrect, after button clicked, hide current options and show next set
+  // question tracker + 1
+  questionTracker += 1;
+  if (questionTracker > questionsArray.length) {
+    // run endFunction
+  }
+  
+// add high score score feature
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
 
 
 
   quizRulesButton.addEventListener("click", startQuiz);
+  
+  
   
 
