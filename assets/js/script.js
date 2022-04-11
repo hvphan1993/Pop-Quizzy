@@ -1,6 +1,8 @@
 // eventlisteners for on click events, array to hold answers for localStorage, stored questions to reference in JSON,
 // -- high score feature, timer feature, way to check accuracy of answer, add initials to high score
 var body = document.body;
+var scoreSubmit = document.getElementById("scores");
+scoreSubmit.style.visibility = "hidden";
 var questionsArray = [
   "Which creature did Han Solo cut open to keep Luke warm?",
   "What did Luke want to get from Tosche station?",
@@ -30,7 +32,7 @@ var correctAnswerArray = [
   "Max Rebo",
 ];
 var quizRulesButton = document.querySelector("#quizStart");
-
+var noAnswer = false;
 var timeLeft = 0;
 
 var timerEl = document.querySelector("#countdown");
@@ -44,6 +46,13 @@ var li1 = document.createElement("li");
 var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
+
+var scoreList = document.createElement("ol");
+var highScore1 = document.createElement("li");
+var highScore2 = document.createElement("li");
+var highScore3 = document.createElement("li");
+var highScore4 = document.createElement("li");
+var highScore5 = document.createElement("li");
 
 var btn1 = document.createElement("button");
 var btn2 = document.createElement("button");
@@ -81,6 +90,13 @@ function countdown() {
   }, 1000);
 }
 
+function scoreTracker() {
+  var user = {
+    score: timeLeft,
+  };
+  localStorage.setItem(initialsInput.value.trim(), JSON.stringify(user));
+}
+
 var startQuiz = function () {
   // if quizRules div and button are visible, make them hidden
   var quizRules = document.querySelector(".quizRules");
@@ -104,39 +120,43 @@ var startQuiz = function () {
 //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
 
 function quizCheck(event) {
-  var userChoice = event.target;
-  //button !== text content of correctAnswerArray[i]) then run incorrect protocol
-  if (userChoice.textContent !== correctAnswerArray[questionTracker]) {
-    timeLeft -= 10;
-    //add "incorrect answer" pop up
-    //change button text color to red
-    userChoice.style.backgroundColor = "red";
-  } //if button clicked is correct then increase time by 10
-  else {
-    timeLeft += 10;
-    // add text "correct" and change color of button to green
-    userChoice.style.backgroundColor = "green";
-  }
-
-  // switch set of questions/answers regardless of correct/incorrect, after button clicked, hide current options and show next set
-  // question tracker + 1
-  questionTracker++;
-
-  // slight delay to view result
-  setTimeout(function () {
-    if (questionTracker > questionsArray.length - 1) {
-      // run endFunction
-      alert("High score feature coming soon!");
-    } else {
-      questionBox.textContent = questionsArray[questionTracker];
-      btn1.textContent = answersArray[questionTracker][0];
-      btn2.textContent = answersArray[questionTracker][1];
-      btn3.textContent = answersArray[questionTracker][2];
-      btn4.textContent = answersArray[questionTracker][3];
-
-      userChoice.style.backgroundColor = "white";
+  if (noAnswer === false) {
+    noAnswer = true;
+    var userChoice = event.target;
+    //button !== text content of correctAnswerArray[i]) then run incorrect protocol
+    if (userChoice.textContent !== correctAnswerArray[questionTracker]) {
+      timeLeft -= 10;
+      //add "incorrect answer" pop up
+      //change button text color to red
+      userChoice.style.backgroundColor = "red";
+    } //if button clicked is correct then increase time by 10
+    else {
+      timeLeft += 10;
+      // add text "correct" and change color of button to green
+      userChoice.style.backgroundColor = "green";
     }
-  }, 1000);
+
+    // switch set of questions/answers regardless of correct/incorrect
+
+    // slight delay to view result
+    setTimeout(function () {
+      if (questionTracker > questionsArray.length - 1) {
+        // pop up high score submission box
+        questionBox.style.visibility = "hidden";
+        scoreSubmit.style.visibility = "visible";
+      } else {
+        questionBox.textContent = questionsArray[questionTracker];
+        btn1.textContent = answersArray[questionTracker][0];
+        btn2.textContent = answersArray[questionTracker][1];
+        btn3.textContent = answersArray[questionTracker][2];
+        btn4.textContent = answersArray[questionTracker][3];
+
+        userChoice.style.backgroundColor = "white";
+      }
+      questionTracker++; // question tracker + 1
+      noAnswer = false;
+    }, 1000);
+  }
 }
 
 // add high score score feature
