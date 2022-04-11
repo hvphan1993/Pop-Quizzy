@@ -1,26 +1,40 @@
-// eventlisteners for on click events, array to hold answers for localStorage, stored questions to reference in JSON, 
+// eventlisteners for on click events, array to hold answers for localStorage, stored questions to reference in JSON,
 // -- high score feature, timer feature, way to check accuracy of answer, add initials to high score
 var body = document.body;
-var questionsArray = ["Which creature did Han Solo cut open to keep Luke warm?",
-                      "What did Luke want to get from Tosche station?",
-                      "Which Jedi has a yellow lightsaber?",
-                      "What species is Greedo?",
-                      "What is the name of Jabba the Hutt's organ player?"
-                    ]
+var questionsArray = [
+  "Which creature did Han Solo cut open to keep Luke warm?",
+  "What did Luke want to get from Tosche station?",
+  "Which Jedi has a yellow lightsaber?",
+  "What species is Greedo?",
+  "What is the name of Jabba the Hutt's organ player?",
+];
 
-var answersArray = [["Rancor", "Tauntaun", "Dewback", "Wampa"],
-                    ["Catalytic converters", "Shield dampeners", "Power converters", "Binary switch"],
-                    ["Ki Adi Mundi", "Plo Koon", "Saesee Tiin", "Agen Kolar"],
-                    ["Weequay", "Aleena", "Rodian", "Nemodian"],
-                    ["Figlin Danko", "Bols Roor", "Mawhonic", "Max Rebo"]
+var answersArray = [
+  ["Rancor", "Tauntaun", "Dewback", "Wampa"],
+  [
+    "Catalytic converters",
+    "Shield dampeners",
+    "Power converters",
+    "Binary switch",
+  ],
+  ["Ki Adi Mundi", "Plo Koon", "Saesee Tiin", "Agen Kolar"],
+  ["Weequay", "Aleena", "Rodian", "Nemodian"],
+  ["Figlin Danko", "Bols Roor", "Mawhonic", "Max Rebo"],
+];
 
-] 
-                    
-var correctAnswerArray = ["Tauntaun", "Power converters", "Plo Koon", "Rodian", "Max Rebo"]
+var correctAnswerArray = [
+  "Tauntaun",
+  "Power converters",
+  "Plo Koon",
+  "Rodian",
+  "Max Rebo",
+];
 var quizRulesButton = document.querySelector("#quizStart");
 
+var timeLeft = 0;
+
 var timerEl = document.querySelector("#countdown");
-var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers 
+var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers
 var questionBox = document.createElement("h1");
 questionBox.classList.add("questionBox");
 var listBox = document.createElement("div");
@@ -38,7 +52,6 @@ var btn4 = document.createElement("button");
 
 var buttonsArray = [btn1, btn2, btn3, btn4];
 
-
 li1.appendChild(btn1);
 li2.appendChild(btn2);
 li3.appendChild(btn3);
@@ -46,36 +59,34 @@ li4.appendChild(btn4);
 
 // timer function
 function countdown() {
-    var timeLeft = 60;
-      var timeInterval = setInterval(function () {
-     // write down count value when time is > than 1 (as count is going down)
-      if (timeLeft > 1) {
-        timerEl.textContent = timeLeft + ' seconds remaining';
-        timeLeft--;
-      } 
-      // change the string when the timer is at one to be grammatically correct
-      else if (timeLeft === 1) {
-        timerEl.textContent = timeLeft + ' second remaining';
-        timeLeft--;
-      } 
-      // when timer has run out (less than 1) clear the interval and stop the quiz and run high score checker
-      else {
-        timerEl.textContent = '';
-        clearInterval(timeInterval);
-       // add in call to stop quiz;
-       // endQuiz();
-      }
-    }, 1000);
-  }
+  timeLeft = 60;
+  var timeInterval = setInterval(function () {
+    // write down count value when time is > than 1 (as count is going down)
+    if (timeLeft > 1) {
+      timerEl.textContent = timeLeft + " seconds remaining";
+      timeLeft--;
+    }
+    // change the string when the timer is at one to be grammatically correct
+    else if (timeLeft === 1) {
+      timerEl.textContent = timeLeft + " second remaining";
+      timeLeft--;
+    }
+    // when timer has run out (less than 1) clear the interval and stop the quiz and run high score checker
+    else {
+      timerEl.textContent = "";
+      clearInterval(timeInterval);
+      // add in call to stop quiz;
+      // endQuiz();
+    }
+  }, 1000);
+}
 
-  
-
-var startQuiz = function(){
+var startQuiz = function () {
   // if quizRules div and button are visible, make them hidden
   var quizRules = document.querySelector(".quizRules");
   quizRules.style.visibility = "hidden";
   //make first set of questions visible (buttons linked to correct/incorrect)
-  questionBox.textContent = questionsArray[0];
+  questionBox.textContent = questionsArray[questionTracker];
   body.appendChild(questionBox);
 
   //answersToFill.textContent = answersArray[0]; changes according to question number
@@ -89,9 +100,8 @@ var startQuiz = function(){
   answersToFill.append(li1, li2, li3, li4);
   //start quiz timer
   countdown();
-  
-}
- //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
+};
+//if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
 
 function quizCheck(event) {
   var userChoice = event.target;
@@ -100,44 +110,40 @@ function quizCheck(event) {
     timeLeft -= 10;
     //add "incorrect answer" pop up
     //change button text color to red
-    userChoice.style.backgroundColor = 'red';
-
+    userChoice.style.backgroundColor = "red";
   } //if button clicked is correct then increase time by 10
   else {
     timeLeft += 10;
     // add text "correct" and change color of button to green
-    userChoice.style.backgroundColor = 'green';
+    userChoice.style.backgroundColor = "green";
   }
 
   // switch set of questions/answers regardless of correct/incorrect, after button clicked, hide current options and show next set
   // question tracker + 1
   questionTracker++;
-  if (questionTracker > questionsArray.length) {
-    // run endFunction
-    alert("High score feature coming soon!");
-  }
-  // else {
-  //   questionBox.textContent = questionsArray[questionTracker];
-  //   btn1.textContent = answersArray[questionTracker][0];
-  //   btn2.textContent = answersArray[questionTracker][1];
-  //   btn3.textContent = answersArray[questionTracker][2];
-  //   btn4.textContent = answersArray[questionTracker][3];
-  // }
+
+  // slight delay to view result
+  setTimeout(function () {
+    if (questionTracker > questionsArray.length - 1) {
+      // run endFunction
+      alert("High score feature coming soon!");
+    } else {
+      questionBox.textContent = questionsArray[questionTracker];
+      btn1.textContent = answersArray[questionTracker][0];
+      btn2.textContent = answersArray[questionTracker][1];
+      btn3.textContent = answersArray[questionTracker][2];
+      btn4.textContent = answersArray[questionTracker][3];
+
+      userChoice.style.backgroundColor = "white";
+    }
+  }, 1000);
 }
-
-
 
 // add high score score feature
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
-
-
 
 quizRulesButton.addEventListener("click", startQuiz);
 
 for (var i = 0; i < buttonsArray.length; i++) {
   buttonsArray[i].addEventListener("click", quizCheck);
 }
-  
-  
-  
-

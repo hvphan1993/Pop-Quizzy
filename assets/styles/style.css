@@ -33,7 +33,7 @@ quizRules {
 /*button styling */
 .answerChoices li button {
     font-size: 22px;
-    margin-bottom; 10px;
+    margin-bottom: 10px;
     border-radius: var(--border-radius);
 }
 
