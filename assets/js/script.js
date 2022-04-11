@@ -1,4 +1,3 @@
-// needs for Sat: create 5 Qs and As, read about how to 
 // eventlisteners for on click events, array to hold answers for localStorage, stored questions to reference in JSON, 
 // -- high score feature, timer feature, way to check accuracy of answer, add initials to high score
 var body = document.body;
@@ -38,9 +37,7 @@ var btn3 = document.createElement("button");
 var btn4 = document.createElement("button");
 
 var buttonsArray = [btn1, btn2, btn3, btn4];
-for (var i = 0; i < buttonsArray.length; i++) {
-  buttonsArray[i].addEventListener("click", quizCheck);
-}
+
 
 li1.appendChild(btn1);
 li2.appendChild(btn2);
@@ -66,6 +63,7 @@ function countdown() {
         timerEl.textContent = '';
         clearInterval(timeInterval);
        // add in call to stop quiz;
+       // endQuiz();
       }
     }, 1000);
   }
@@ -80,11 +78,11 @@ var startQuiz = function(){
   questionBox.textContent = questionsArray[0];
   body.appendChild(questionBox);
 
-  //answersToFill.textContent = answersArray[0];
-  btn1.textContent = answersArray[0][0];
-  btn2.textContent = answersArray[0][1];
-  btn3.textContent = answersArray[0][2];
-  btn4.textContent = answersArray[0][3];
+  //answersToFill.textContent = answersArray[0]; changes according to question number
+  btn1.textContent = answersArray[questionTracker][0];
+  btn2.textContent = answersArray[questionTracker][1];
+  btn3.textContent = answersArray[questionTracker][2];
+  btn4.textContent = answersArray[questionTracker][3];
   // need to append the list structure before adding in list elements
   body.appendChild(listBox);
   listBox.appendChild(answersToFill);
@@ -95,34 +93,50 @@ var startQuiz = function(){
 }
  //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
 
-var quizCheck = function(event) {
+function quizCheck(event) {
   var userChoice = event.target;
   //button !== text content of correctAnswerArray[i]) then run incorrect protocol
   if (userChoice.textContent !== correctAnswerArray[questionTracker]) {
     timeLeft -= 10;
-    //add "incorrect answer" pop op
+    //add "incorrect answer" pop up
     //change button text color to red
-   
-}//if button clicked is correct then increase time by 10, change color of button to green and text to "correct!"
+    userChoice.style.backgroundColor = 'red';
+
+  } //if button clicked is correct then increase time by 10
   else {
     timeLeft += 10;
-    // add text "correct"
-    userChoice.setAttribute("style", "color: green";)
+    // add text "correct" and change color of button to green
+    userChoice.style.backgroundColor = 'green';
   }
 
-   // switch set of questions/answers regardless of correct/incorrect, after button clicked, hide current options and show next set
+  // switch set of questions/answers regardless of correct/incorrect, after button clicked, hide current options and show next set
   // question tracker + 1
-  questionTracker += 1;
+  questionTracker++;
   if (questionTracker > questionsArray.length) {
     // run endFunction
+    alert("High score feature coming soon!");
   }
-  
+  // else {
+  //   questionBox.textContent = questionsArray[questionTracker];
+  //   btn1.textContent = answersArray[questionTracker][0];
+  //   btn2.textContent = answersArray[questionTracker][1];
+  //   btn3.textContent = answersArray[questionTracker][2];
+  //   btn4.textContent = answersArray[questionTracker][3];
+  // }
+}
+
+
+
 // add high score score feature
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
 
 
 
-  quizRulesButton.addEventListener("click", startQuiz);
+quizRulesButton.addEventListener("click", startQuiz);
+
+for (var i = 0; i < buttonsArray.length; i++) {
+  buttonsArray[i].addEventListener("click", quizCheck);
+}
   
   
   

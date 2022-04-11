@@ -1,20 +1,28 @@
+:root {
+    --border-radius: 15px;
+    --text-align: center;
+
+}
+
 /* high score and timer stylying */
 
 
 /* Quiz intro styling */
+quizRules {
 
+}
 
 /*question box styling */
 .questionBox {
-    text-align: center;
-    border-radius: 20px;
+    text-align: var(--text-align);
+    border-radius: var(--border-radius);
 
 }
 
 
 /*answer box styling */
 .answerChoices {
-    border-radius: 20px;
+    border-radius: var(--border-radius);
     width: 40%;
     font-size: 26px; 
     background-color: #2a9fbe; 
@@ -26,9 +34,14 @@
 .answerChoices li button {
     font-size: 22px;
     margin-bottom; 10px;
-    border-radius: 20px;
+    border-radius: var(--border-radius);
 }
 
-
+/* timer styling */
+#countdown {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
 
 /* high score page styling */
