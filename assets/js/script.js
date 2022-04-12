@@ -143,6 +143,7 @@ function quizCheck(event) {
       if (questionTracker > questionsArray.length - 1) {
         // pop up high score submission box
         questionBox.style.visibility = "hidden";
+        listBox.style.visibility = "hidden";
         scoreSubmit.style.visibility = "visible";
       } else {
         questionBox.textContent = questionsArray[questionTracker];
@@ -152,12 +153,14 @@ function quizCheck(event) {
         btn4.textContent = answersArray[questionTracker][3];
 
         userChoice.style.backgroundColor = "white";
+        console.log(questionTracker);
       }
-      questionTracker++; // question tracker + 1
       noAnswer = false;
     }, 1000);
+    questionTracker++; // question tracker + 1
   }
 }
+
 
 // add high score score feature
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
@@ -167,3 +170,7 @@ quizRulesButton.addEventListener("click", startQuiz);
 for (var i = 0; i < buttonsArray.length; i++) {
   buttonsArray[i].addEventListener("click", quizCheck);
 }
+quizRulesButton.addEventListener("click", function handleClick(event) {
+  // 👇️ "parent"
+  console.log(event.target.parentElement.id);
+});

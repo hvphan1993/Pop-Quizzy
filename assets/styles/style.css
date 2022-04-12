@@ -5,17 +5,33 @@
 }
 
 /* high score and timer stylying */
-
+#scores.scores {
+    display: flex;
+    justify-content: center;
+}
 
 /* Quiz intro styling */
-quizRules {
+/* body {
+    
+} */
 
+.quizRules {
+    text-align: var(--text-align);
+    border-radius: var(--border-radius);
+    width: 60%;
+    margin: 0 auto;
+    /* background-color: #8DF7B7; */
 }
+
+
 
 /*question box styling */
 .questionBox {
     text-align: var(--text-align);
     border-radius: var(--border-radius);
+    width: 60%;
+    background-color: #F6AC9C;
+    margin: 0 auto;
 
 }
 
