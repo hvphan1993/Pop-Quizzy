@@ -11,19 +11,18 @@
 }
 
 /* Quiz intro styling */
-/* body {
-    
-} */
 
-.quizRules {
+
+quizRules {
     text-align: var(--text-align);
     border-radius: var(--border-radius);
-    width: 60%;
-    margin: 0 auto;
-    /* background-color: #8DF7B7; */
+    background: #8DF7B7;
+    border: 5px dashed black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
 }
-
-
 
 /*question box styling */
 .questionBox {
@@ -32,9 +31,12 @@
     width: 60%;
     background-color: #F6AC9C;
     margin: 0 auto;
+ }
 
+quizButton {
+    display: flex;
+    justify-content: center;
 }
-
 
 /*answer box styling */
 .answerChoices {
@@ -43,7 +45,7 @@
     font-size: 26px; 
     background-color: #2a9fbe; 
     padding: 30px;
-    margin: 100px auto;
+    margin: 50px auto;
 }
 
 /*button styling */

@@ -34,6 +34,7 @@ var correctAnswerArray = [
 var quizRulesButton = document.querySelector("#quizStart");
 var noAnswer = false;
 var timeLeft = 0;
+var initialsInput = document.querySelector("#initials");
 
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers
@@ -94,7 +95,7 @@ function scoreTracker() {
   var user = {
     score: timeLeft,
   };
-  localStorage.setItem(initialsInput.value.trim(), JSON.stringify(user));
+  localStorage.setItem("score", JSON.stringify(user));
 }
 
 var startQuiz = function () {
@@ -145,6 +146,7 @@ function quizCheck(event) {
         questionBox.style.visibility = "hidden";
         listBox.style.visibility = "hidden";
         scoreSubmit.style.visibility = "visible";
+        scoreTracker();
       } else {
         questionBox.textContent = questionsArray[questionTracker];
         btn1.textContent = answersArray[questionTracker][0];
