@@ -34,7 +34,6 @@ var correctAnswerArray = [
 var quizRulesButton = document.querySelector("#quizStart");
 var noAnswer = false;
 var timeLeft = 0;
-var initialsInput = document.querySelector("#initials");
 
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers
@@ -48,13 +47,6 @@ var li2 = document.createElement("li");
 var li3 = document.createElement("li");
 var li4 = document.createElement("li");
 
-var scoreList = document.createElement("ol");
-var highScore1 = document.createElement("li");
-var highScore2 = document.createElement("li");
-var highScore3 = document.createElement("li");
-var highScore4 = document.createElement("li");
-var highScore5 = document.createElement("li");
-
 var btn1 = document.createElement("button");
 var btn2 = document.createElement("button");
 var btn3 = document.createElement("button");
@@ -67,8 +59,20 @@ li2.appendChild(btn2);
 li3.appendChild(btn3);
 li4.appendChild(btn4);
 
+var initialsInput = document.getElementById('initials');
+var submitInitials = document.getElementById('submit');
+var finalScore = 60;
+
+var scoreDisplay = document.createElement("div");
+scoreDisplay.classList.add("scoreDisplay");
+body.appendChild(scoreDisplay);
+scoreDisplay.style.visibility = "hidden";
+
 // timer function
 function countdown() {
+  if (timerEl.style.visibility = "hidden") {
+    timerEl.style.visibility = "visible";
+  }
   timeLeft = 60;
   var timeInterval = setInterval(function () {
     // write down count value when time is > than 1 (as count is going down)
@@ -85,20 +89,83 @@ function countdown() {
     else {
       timerEl.textContent = "";
       clearInterval(timeInterval);
-      // add in call to stop quiz;
-      // endQuiz();
+      alert("Oh no it looks like your time is up! Let's check out the scores list!");
+      // link to high scores list
+      displayScores();
     }
   }, 1000);
 }
 
 function scoreTracker() {
   var user = {
-    score: timeLeft,
+    initials: initialsInput.value.trim(),
+    score: finalScore,
   };
-  localStorage.setItem("score", JSON.stringify(user));
+  var i = 0;
+  var breakOut = false;
+  while (breakOut == false) {
+    // identifying where new score will be placed
+    if (i == 10) {
+      breakOut = true;
+    } else if (JSON.parse(window.localStorage.getItem(i))["score"] > finalScore) {
+      i++;
+      console.log("iterate");
+    } else {
+      breakOut = true;
+    }
+  }
+  // if new score placed into list, bump other scores down
+  if (i < 10) {
+    for (j = 9; j > i; j--) {
+      window.localStorage.setItem(j, window.localStorage.getItem(j - 1))
+    }
+    window.localStorage.setItem(i, JSON.stringify(user));
+  }
+  displayScores();
+  
+}
+
+// add scores to score list and append to body at appropriate time
+function displayScores() {
+  scoreSubmit.style.visibility = "hidden";
+  scoreDisplay.style.visibility = "visible";
+  
+  var allHighScores = [];
+  i = 0;
+
+  while (i < 10) {
+    allHighScores.push(JSON.parse(localStorage.getItem(i)));
+    i++;
+  }
+
+  var highScoreList = document.createElement("ol");
+
+  for (i = 0; i < allHighScores.length; i++) {
+    if (allHighScores[i]["score"] != -1) {
+      var myEntry = document.createElement("li");
+      myEntry.innerText = allHighScores[i]["initials"] + " - " + allHighScores[i]["score"];
+      highScoreList.appendChild(myEntry);
+    }
+  }
+
+scoreDisplay.appendChild(highScoreList);
 }
 
 var startQuiz = function () {
+  // initialize high scores
+
+  if (window.localStorage.length === 0) {
+    for (var i = 0; i < 10; i++) {
+      var user = {
+        initials: 0,
+        score: -1,
+      };
+
+      window.localStorage.setItem(i, JSON.stringify(user));
+    }
+  }
+  
+ 
   // if quizRules div and button are visible, make them hidden
   var quizRules = document.querySelector(".quizRules");
   quizRules.style.visibility = "hidden";
@@ -116,6 +183,7 @@ var startQuiz = function () {
   listBox.appendChild(answersToFill);
   answersToFill.append(li1, li2, li3, li4);
   //start quiz timer
+
   countdown();
 };
 //if button clicked is incorrect then decrease time by 10 and put out "Incorrect" text
@@ -146,7 +214,9 @@ function quizCheck(event) {
         questionBox.style.visibility = "hidden";
         listBox.style.visibility = "hidden";
         scoreSubmit.style.visibility = "visible";
-        scoreTracker();
+        alert("Your score is " + timeLeft + " ! Let's see how it compares!");
+        timerEl.style.visibility = "hidden";
+        timeLeft++;
       } else {
         questionBox.textContent = questionsArray[questionTracker];
         btn1.textContent = answersArray[questionTracker][0];
@@ -164,7 +234,6 @@ function quizCheck(event) {
 }
 
 
-// add high score score feature
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
 
 quizRulesButton.addEventListener("click", startQuiz);
@@ -176,3 +245,5 @@ quizRulesButton.addEventListener("click", function handleClick(event) {
   // 👇️ "parent"
   console.log(event.target.parentElement.id);
 });
+
+submitInitials.addEventListener("click", scoreTracker);

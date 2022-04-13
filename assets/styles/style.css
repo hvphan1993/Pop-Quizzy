@@ -12,7 +12,6 @@
 
 /* Quiz intro styling */
 
-
 quizRules {
     text-align: var(--text-align);
     border-radius: var(--border-radius);
@@ -33,9 +32,24 @@ quizRules {
     margin: 0 auto;
  }
 
+ .scoreDisplay ol {
+    text-align: center;
+}
+
+.scoreDisplay ol li {
+    font-size: 22px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+}
+
 quizButton {
     display: flex;
     justify-content: center;
+}
+
+#quizStart {
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
 }
 
 /*answer box styling */
