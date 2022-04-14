@@ -154,7 +154,7 @@ scoreDisplay.appendChild(highScoreList);
 var startQuiz = function () {
   // initialize high scores
 
-  if (window.localStorage.length === 0) {
+  if (window.localStorage.length == 0) {
     for (var i = 0; i < 10; i++) {
       var user = {
         initials: 0,
@@ -242,7 +242,7 @@ for (var i = 0; i < buttonsArray.length; i++) {
   buttonsArray[i].addEventListener("click", quizCheck);
 }
 quizRulesButton.addEventListener("click", function handleClick(event) {
-  // 👇️ "parent"
+  // "parent"
   console.log(event.target.parentElement.id);
 });
 
