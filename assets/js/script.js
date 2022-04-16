@@ -34,7 +34,6 @@ var correctAnswerArray = [
 var quizRulesButton = document.querySelector("#quizStart");
 var noAnswer = false;
 var timeLeft = 0;
-var timeInterval = setInterval(countdown, 1000);
 
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers
@@ -98,6 +97,7 @@ function countdown() {
       // link to high scores list
       displayScores();
     }
+    // add in condition to stop timer upon quiz completion (avoid counting down to zero)
  if (questionTracker > questionsArray.length - 1) {
     clearInterval(timeInterval);
     timerEl.textContent = "Quiz Complete"
