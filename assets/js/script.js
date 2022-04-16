@@ -34,6 +34,7 @@ var correctAnswerArray = [
 var quizRulesButton = document.querySelector("#quizStart");
 var noAnswer = false;
 var timeLeft = 0;
+var timeInterval = setInterval(countdown, 1000);
 
 var timerEl = document.querySelector("#countdown");
 var questionTracker = 0; // use as index, if question tracker is -something- then set up questions and answers, set new function of Answer checker to plug in Qs and answers
@@ -59,8 +60,8 @@ li2.appendChild(btn2);
 li3.appendChild(btn3);
 li4.appendChild(btn4);
 
-var initialsInput = document.getElementById('initials');
-var submitInitials = document.getElementById('submit');
+var initialsInput = document.getElementById("initials");
+var submitInitials = document.getElementById("submit");
 var finalScore = 60;
 
 var scoreDisplay = document.createElement("div");
@@ -70,11 +71,13 @@ scoreDisplay.style.visibility = "hidden";
 
 // timer function
 function countdown() {
-  if (timerEl.style.visibility = "hidden") {
+  if ((timerEl.style.visibility = "hidden")) {
     timerEl.style.visibility = "visible";
   }
   timeLeft = 60;
+
   var timeInterval = setInterval(function () {
+    // use boolean to control timer after quiz is finished
     // write down count value when time is > than 1 (as count is going down)
     if (timeLeft > 1) {
       timerEl.textContent = timeLeft + " seconds remaining";
@@ -85,17 +88,29 @@ function countdown() {
       timerEl.textContent = timeLeft + " second remaining";
       timeLeft--;
     }
-    // when timer has run out (less than 1) clear the interval and stop the quiz and run high score checker
+  // when timer has run out (less than 1) clear the interval and stop the quiz and run high score checker
     else {
       timerEl.textContent = "";
       clearInterval(timeInterval);
-      alert("Oh no it looks like your time is up! Let's check out the scores list!");
+      alert(
+        "Oh no it looks like your time is up! Let's check out the scores list!"
+      );
       // link to high scores list
       displayScores();
     }
+ if (questionTracker > questionsArray.length - 1) {
+    clearInterval(timeInterval);
+    timerEl.textContent = "Quiz Complete"
+    }
+
   }, 1000);
 }
 
+// function stopCountdown() {
+//   if (timeLeft > 1) {
+//     clearInterval(timeInterval);
+//   }
+// }
 function scoreTracker() {
   var user = {
     initials: initialsInput.value.trim(),
@@ -107,7 +122,9 @@ function scoreTracker() {
     // identifying where new score will be placed
     if (i == 10) {
       breakOut = true;
-    } else if (JSON.parse(window.localStorage.getItem(i))["score"] > finalScore) {
+    } else if (
+      JSON.parse(window.localStorage.getItem(i))["score"] > finalScore
+    ) {
       i++;
       console.log("iterate");
     } else {
@@ -117,19 +134,18 @@ function scoreTracker() {
   // if new score placed into list, bump other scores down
   if (i < 10) {
     for (j = 9; j > i; j--) {
-      window.localStorage.setItem(j, window.localStorage.getItem(j - 1))
+      window.localStorage.setItem(j, window.localStorage.getItem(j - 1));
     }
     window.localStorage.setItem(i, JSON.stringify(user));
   }
   displayScores();
-  
 }
 
 // add scores to score list and append to body at appropriate time
 function displayScores() {
   scoreSubmit.style.visibility = "hidden";
   scoreDisplay.style.visibility = "visible";
-  
+
   var allHighScores = [];
   i = 0;
 
@@ -137,18 +153,19 @@ function displayScores() {
     allHighScores.push(JSON.parse(localStorage.getItem(i)));
     i++;
   }
-
+  console.log(i);
   var highScoreList = document.createElement("ol");
 
   for (i = 0; i < allHighScores.length; i++) {
     if (allHighScores[i]["score"] != -1) {
       var myEntry = document.createElement("li");
-      myEntry.innerText = allHighScores[i]["initials"] + " - " + allHighScores[i]["score"];
+      myEntry.innerText =
+        allHighScores[i]["initials"] + " - " + allHighScores[i]["score"];
       highScoreList.appendChild(myEntry);
     }
   }
 
-scoreDisplay.appendChild(highScoreList);
+  scoreDisplay.appendChild(highScoreList);
 }
 
 var startQuiz = function () {
@@ -164,8 +181,7 @@ var startQuiz = function () {
       window.localStorage.setItem(i, JSON.stringify(user));
     }
   }
-  
- 
+
   // if quizRules div and button are visible, make them hidden
   var quizRules = document.querySelector(".quizRules");
   quizRules.style.visibility = "hidden";
@@ -214,9 +230,11 @@ function quizCheck(event) {
         questionBox.style.visibility = "hidden";
         listBox.style.visibility = "hidden";
         scoreSubmit.style.visibility = "visible";
+        console.log(scoreSubmit.style.visibility);
         alert("Your score is " + timeLeft + " ! Let's see how it compares!");
-        timerEl.style.visibility = "hidden";
-        timeLeft++;
+        // timerEl.style.visibility = "hidden";
+        finalScore = timeLeft;
+        // stopCountdown();
       } else {
         questionBox.textContent = questionsArray[questionTracker];
         btn1.textContent = answersArray[questionTracker][0];
@@ -232,7 +250,6 @@ function quizCheck(event) {
     questionTracker++; // question tracker + 1
   }
 }
-
 
 // refer to dataset attributes of true/false when matching to trigger correct/incorrect responses
 
