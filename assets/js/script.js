@@ -142,6 +142,10 @@ function displayScores() {
   var quizRules = document.querySelector(".quizRules");
   quizRules.style.visibility = "hidden";
   scoreDisplay.innerHTML = '';
+  questionBox.style.visibility = "hidden";
+  listBox.style.visibility = "hidden";
+  questionTracker = questionsArray.length + 1;
+
 
   var allHighScores = [];
   i = 0;
