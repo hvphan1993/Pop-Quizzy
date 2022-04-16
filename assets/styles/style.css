@@ -1,20 +1,39 @@
 :root {
     --border-radius: 15px;
     --text-align: center;
-
+    
 }
 
-/* high score and timer stylying */
-#scores.scores {
+/* high score and timer styling */
+header {
+    position: fixed;
     display: flex;
+  width: 100%
+ 
+}
+
+h3 {
+    display: flex;
+    padding: 0px;
+    width: 100%;
+}
+
+#viewHighScores {
+    padding-left: 50px;
+}
+
+#countdown {
+    padding-right: 50px;
+    justify-content: right;
+} 
+
+/* #viewHighScores {
+    align-items:
+} */ */
+
+body {
     justify-content: center;
 }
-
-/* #restartQuiz {
-    text-align: center;
-    border: 2px dashed blue;
-    margin: 80%;
-} */
 
 /* Quiz intro styling */
 
@@ -77,11 +96,5 @@ quizButton {
     border-radius: var(--border-radius);
 }
 
-/* timer styling */
-#countdown {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-}
 
 /* high score page styling */

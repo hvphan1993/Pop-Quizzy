@@ -8,13 +8,10 @@
     <title>Pop Quiz</title>
   </head>
   <body>
-    <header>
+    <header class="header">
       <h3 id="viewHighScores">View High Scores</h3>
-      </header>
-
-    <section>
       <h3 id="countdown"></h3>
-    </section>
+    </header>
 
     <quizRules class="quizRules">
       <h2>Welcome to the Star Wars Quiz!</h2>
@@ -27,17 +24,17 @@
       <quizButton>
         <button type="button" id="quizStart">Press Here to Begin!</button>
       </quizButton>
-    </quizRules>
 
-    <scores class="scores" id="scores">
-      <input
-        type="text"
-        name="initials"
-        id="initials"
-        placeholder="Type Your Initials"
-      />
-      <button id="submit">Submit High Score</button>
-    </scores>
+      <scores class="scores" id="scores">
+        <input
+          type="text"
+          name="initials"
+          id="initials"
+          placeholder="Type Your Initials"
+        />
+        <button id="submit">Submit High Score</button>
+      </scores>
+    </quizRules>
 
     <script src="./assets/js/script.js"></script>
   </body>

@@ -212,7 +212,7 @@ function quizCheck(event) {
     //button !== text content of correctAnswerArray[i]) then run incorrect protocol
     if (userChoice.textContent !== correctAnswerArray[questionTracker]) {
       timeLeft -= 10;
-      //add "incorrect answer" pop up
+      
       //change button text color to red
       userChoice.style.backgroundColor = "red";
     } //if button clicked is correct then increase time by 10
@@ -222,7 +222,7 @@ function quizCheck(event) {
       userChoice.style.backgroundColor = "green";
     }
 
-    // switch set of questions/answers regardless of correct/incorrect
+    
 
     // slight delay to view result
     setTimeout(function () {
