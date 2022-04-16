@@ -76,7 +76,6 @@ function countdown() {
   timeLeft = 60;
 
   var timeInterval = setInterval(function () {
-    // use boolean to control timer after quiz is finished
     // write down count value when time is > than 1 (as count is going down)
     if (timeLeft > 1) {
       timerEl.textContent = timeLeft + " seconds remaining";
@@ -106,11 +105,6 @@ function countdown() {
   }, 1000);
 }
 
-// function stopCountdown() {
-//   if (timeLeft > 1) {
-//     clearInterval(timeInterval);
-//   }
-// }
 function scoreTracker() {
   var user = {
     initials: initialsInput.value.trim(),
@@ -145,6 +139,9 @@ function scoreTracker() {
 function displayScores() {
   scoreSubmit.style.visibility = "hidden";
   scoreDisplay.style.visibility = "visible";
+  var quizRules = document.querySelector(".quizRules");
+  quizRules.style.visibility = "hidden";
+  scoreDisplay.innerHTML = '';
 
   var allHighScores = [];
   i = 0;
@@ -264,3 +261,5 @@ quizRulesButton.addEventListener("click", function handleClick(event) {
 });
 
 submitInitials.addEventListener("click", scoreTracker);
+
+document.getElementById("viewHighScores").addEventListener("click", displayScores);

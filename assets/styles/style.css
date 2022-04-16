@@ -10,6 +10,12 @@
     justify-content: center;
 }
 
+/* #restartQuiz {
+    text-align: center;
+    border: 2px dashed blue;
+    margin: 80%;
+} */
+
 /* Quiz intro styling */
 
 quizRules {
@@ -34,12 +40,14 @@ quizRules {
 
  .scoreDisplay ol {
     text-align: center;
+    
 }
 
 .scoreDisplay ol li {
     font-size: 22px;
     margin-bottom: 10px;
     border-radius: var(--border-radius);
+    list-style-position: inside;
 }
 
 quizButton {
