@@ -88,3 +88,8 @@ I added a click event to the text "View High Score" that would run the displaySc
 I also had to set the visibility of the other containers to "hidden".
 
 ![hiding other containers to view high scores](./assets/images/displayscoreshideotherboxes.png)
+
+## Links
+Github repository link: https://github.com/hvphan1993/Pop-Quizzy.git
+
+Active link: https://hvphan1993.github.io/Pop-Quizzy/
