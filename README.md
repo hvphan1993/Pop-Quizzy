@@ -4,7 +4,7 @@
 The purpose of this challenge was to create a quiz using html, css, and javascript elements that cycled through questions, utilized a responsive timer, and stored and presented the user's score upon completion.
 
 ## Creating the Timer
-To create the timer feature, I had to first set up a div in the html that would store the #countdown id. This would be connected to the javascript as a function and used to house the timer for the user to view.
+To create the timer feature, I had to first set up #countdown id in html and then connect it to my javascript using document.querySelector("#countdown"). From here I knew I could adjust the text content of the new variable of timerEl (which refers to the countdown id in html) to read out time left to the user as it was being adjusted throughout the quiz.
 
 ![countdown id](./assets/images/countdownID.png)
 
@@ -66,7 +66,7 @@ I added a boolean value to the answer choices as well so that during the short d
 
 
 ## Setting Up High Score Storage
-To collect the user's data and create the high scores page, I saved the user's scores and initials to localStorage and then parsed it with JSON to bring the values back in a usable state. The user's score was tied to the amount of time left on the timer.
+To collect the user's data and create the high scores page, I saved the user's scores and initials to localStorage and then parsed it with JSON to bring the values back in a usable state. The user's final score was tied to the amount of time left on the timer.
 
 ![user data gathered](./assets/images/scoretrackerfunctionfinalscore.png)
 
